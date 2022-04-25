@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="products" class="com.cours.project_spring_test.service.impl.ProductServiceImpl" />
+    <bean id="clients" class="com.cours.project_spring_test.service.impl.ClientServiceImpl" />
+
+    <bean id="orders" class="com.cours.project_spring_test.service.impl.OrderServiceImpl">
+        <property name="productService" ref="products" />
+    </bean>
+</beans>

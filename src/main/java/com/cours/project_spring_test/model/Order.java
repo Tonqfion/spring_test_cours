@@ -18,9 +18,9 @@ public class Order {
 
     private List<OrderProduct> orderProductsList;
 
-    private LocalDate dateCreated = LocalDate.now();
+    private LocalDate dateCreated;
 
-    private String status = "initialisée";
+    private String status;
 
     private Client client;
 
@@ -28,8 +28,10 @@ public class Order {
         super();
     }
 
-    public Order(final Long pId, final Client pClient) {
+    public Order(final Long pId, final String pStatus, final LocalDate pDateCreated, final Client pClient) {
         id = pId;
+        status = pStatus;
+        dateCreated = pDateCreated;
         client = pClient;
     }
 
@@ -47,24 +49,19 @@ public class Order {
 
     public void addProduct(Product pProduct, int pQuantity) {
 
-        if (pProduct.getAvailableQuantity() < pQuantity) {
-            System.out.println("\n STOP T'AS PAS LE DROIT Y'EN A PU \n");
-        } else {
-            if (orderProductsList == null) {
-                orderProductsList = new ArrayList<>();
-            }
-            final Optional<OrderProduct> optOrderProductPresent = orderProductsList.stream().filter(orderProduct -> orderProduct.getProduct().equals(pProduct)).findFirst();
-
-            if (optOrderProductPresent.isPresent()) {
-                final OrderProduct orderProductToUpdate = optOrderProductPresent.get();
-                orderProductToUpdate.setQuantity(orderProductToUpdate.getQuantity() + pQuantity);
-            } else {
-                final OrderProduct newOrderProduct = new OrderProduct(pProduct, this, pQuantity);
-                orderProductsList.add(newOrderProduct);
-            }
-            pProduct.setAvailableQuantity(pProduct.getAvailableQuantity() - pQuantity);
-
+        if (orderProductsList == null) {
+            orderProductsList = new ArrayList<>();
         }
+        final Optional<OrderProduct> optOrderProductPresent = orderProductsList.stream().filter(orderProduct -> orderProduct.getProduct().equals(pProduct)).findFirst();
+
+        if (optOrderProductPresent.isPresent()) {
+            final OrderProduct orderProductToUpdate = optOrderProductPresent.get();
+            orderProductToUpdate.setQuantity(orderProductToUpdate.getQuantity() + pQuantity);
+        } else {
+            final OrderProduct newOrderProduct = new OrderProduct(pProduct, this, pQuantity);
+            orderProductsList.add(newOrderProduct);
+        }
+
 
     }
 
