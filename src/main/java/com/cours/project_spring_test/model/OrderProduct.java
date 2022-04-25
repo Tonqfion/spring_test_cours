@@ -3,37 +3,26 @@ package com.cours.project_spring_test.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 @Getter
 @Setter
+@Entity
+@Table(name = "order_product")
 public class OrderProduct {
 
-    private Product product;
+    @EmbeddedId
+    private fr.apitest.bertrand.apitest.entities.embeddables.OrderProductId id;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private Product product;
+
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
-
-    public OrderProduct() {
-        super();
-    }
-
-    public OrderProduct(Product pProduct, Order pOrder, Integer pQuantity){
-        product = pProduct;
-        order = pOrder;
-        quantity = pQuantity;
-    }
-
-    public Double getTotalPrice() {
-        return product.getPrice() * quantity;
-    }
-
-    @Override
-    public String toString() {
-        return "------------------------- \n" + //
-        "Produit commandé : " + product.getName() + "\n" + //
-        "Quantité commandée : " + quantity + "\n" + //
-        "Prix total : " + getTotalPrice() + " euros \n" + //
-        "------------------------- \n";
-    }
 
 }

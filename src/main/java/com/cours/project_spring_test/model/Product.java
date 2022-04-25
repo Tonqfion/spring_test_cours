@@ -18,29 +18,16 @@ public class Product {
     @Column(length = 100, name = "name", nullable = false)
     private String name;
 
-
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "picture", nullable = true)
+    @Column(name = "picture")
     private String picture;
 
-    @Column(name = "available-quantity", nullable = false)
+    @Column(name = "available_quantity", nullable = false)
     private Integer availableQuantity;
 
-    public Product() {
-        super();
-    }
-
-    public Product(final Long pId, final String pName, final String pDescription, final Double pPrice, final String pPicture, final Integer pAvailableQuantity) {
-        id = pId;
-        name = pName;
-        description = pDescription;
-        price = pPrice;
-        picture = pPicture;
-        availableQuantity = pAvailableQuantity;
-    }
 }
