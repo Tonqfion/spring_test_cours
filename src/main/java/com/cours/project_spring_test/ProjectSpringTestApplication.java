@@ -8,7 +8,6 @@ import com.cours.project_spring_test.service.ClientService;
 import com.cours.project_spring_test.service.OrderService;
 import com.cours.project_spring_test.service.ProductService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.time.LocalDate;
@@ -16,49 +15,53 @@ import java.time.LocalDate;
 @SpringBootApplication
 public class ProjectSpringTestApplication {
 
-    public static void main(String[] args) throws StockException {
+    public static void main(String[] args) {
 //        SpringApplication.run(ProjectSpringTestApplication.class, args);
-        final ApplicationContext context = new ClassPathXmlApplicationContext("services.xml");
 
-        final ClientService clientService = context.getBean("clients", ClientService.class);
+        try (final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("services.xml"))
+        {
+            final ClientService clientService = context.getBean("clients", ClientService.class);
 
-        final OrderService orderService = context.getBean("orders", OrderService.class);
+            final OrderService orderService = context.getBean("orders", OrderService.class);
 
-        final ProductService productService = context.getBean("products", ProductService.class);
+            final ProductService productService = context.getBean("products", ProductService.class);
 
-        final Product chaussettes = new Product(1L, "Chaussettes", "Des chaussettes", 19.99, "chausettes.jpg", 500);
-        final Product chaussures = new Product(2L, "Chaussures", "Des chaussures", 29.99, "chaussures.jpg", 100);
-        final Product casquette = new Product(3L, "Casquette", "Une casquette", 59.99, "casquette.jpg", 20);
+            final Product chaussettes = new Product(1L, "Chaussettes", "Des chaussettes", 19.99, "chausettes.jpg", 500);
+            final Product chaussures = new Product(2L, "Chaussures", "Des chaussures", 29.99, "chaussures.jpg", 100);
+            final Product casquette = new Product(3L, "Casquette", "Une casquette", 59.99, "casquette.jpg", 20);
 
-        final Client leDeuxiemeClient = new Client(2L, "Le Deuxieme Client", "gnagna");
+            final Client leDeuxiemeClient = new Client(2L, "Le Deuxieme Client", "gnagna");
 
-        clientService.save(leDeuxiemeClient);
-        final Order laDeuxiemeCommande = new Order(2L, "ongoing", LocalDate.now(), leDeuxiemeClient);
+            clientService.save(leDeuxiemeClient);
+            final Order laDeuxiemeCommande = new Order(2L, "ongoing", LocalDate.now(), leDeuxiemeClient);
 
-        productService.save(chaussettes);
-        productService.save(chaussures);
-        productService.save(casquette);
+            productService.save(chaussettes);
+            productService.save(chaussures);
+            productService.save(casquette);
 
-        laDeuxiemeCommande.addProduct(chaussettes, 2);
-        laDeuxiemeCommande.addProduct(casquette, 50);
+            laDeuxiemeCommande.addProduct(chaussettes, 2);
+            laDeuxiemeCommande.addProduct(casquette, 5);
 
-        productService.getAllProducts().forEach(System.out::println);
-        orderService.create(laDeuxiemeCommande);
-        System.out.println(laDeuxiemeCommande.getStatus());
-        try {
-            orderService.update(laDeuxiemeCommande);
-        } catch(StockException exception) {
-            System.err.println(exception.getMessage());
+            productService.getAllProducts().forEach(System.out::println);
+            orderService.create(laDeuxiemeCommande);
+            System.out.println(laDeuxiemeCommande.getStatus());
+            try {
+                orderService.update(laDeuxiemeCommande);
+            } catch(StockException exception) {
+                System.err.println(exception.getMessage());
+            }
+
+            try {
+                orderService.update(laDeuxiemeCommande);
+            } catch(StockException exception) {
+                System.err.println(exception.getMessage());
+            }
+
+            System.out.println(laDeuxiemeCommande.getStatus());
+            System.out.println(chaussettes.getAvailableQuantity());
+            System.out.println(casquette.getAvailableQuantity());
+
         }
-
-        try {
-            orderService.update(laDeuxiemeCommande);
-        } catch(StockException exception) {
-            System.err.println(exception.getMessage());
-        }
-        System.out.println(laDeuxiemeCommande.getStatus());
-        System.out.println(chaussettes.getAvailableQuantity());
-        System.out.println(casquette.getAvailableQuantity());
 
 
     }
@@ -104,8 +107,8 @@ public class ProjectSpringTestApplication {
 //        System.out.println(laCommande);
 //
 //        final Product lunettes = new Product(3L, "lunettes", "Des lunettes", 159.99, "lunettes.jpg", 200);
-        final Client leDeuxiemeClient = new Client(2L, "Le Deuxieme Client", "gnagna");
-        final Order laDeuxiemeCommande = new Order(2L, "ongoing", LocalDate.now(), leDeuxiemeClient);
+//        final Client leDeuxiemeClient = new Client(2L, "Le Deuxieme Client", "gnagna");
+//        final Order laDeuxiemeCommande = new Order(2L, "ongoing", LocalDate.now(), leDeuxiemeClient);
 //        laDeuxiemeCommande.addProduct(chaussettes, 20);
 //        laDeuxiemeCommande.addProduct(lunettes, 505);
 //        System.out.println(laDeuxiemeCommande);
