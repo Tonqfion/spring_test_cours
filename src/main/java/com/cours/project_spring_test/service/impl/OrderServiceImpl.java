@@ -5,15 +5,19 @@ import com.cours.project_spring_test.model.Order;
 import com.cours.project_spring_test.model.OrderProduct;
 import com.cours.project_spring_test.service.OrderService;
 import com.cours.project_spring_test.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service("orders")
 public class OrderServiceImpl implements OrderService {
 
     private final List<Order> allOrders = new ArrayList<>();
 
+    @Autowired
     private ProductService productService;
 
     @Override

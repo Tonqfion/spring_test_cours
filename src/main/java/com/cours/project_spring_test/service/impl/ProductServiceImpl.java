@@ -4,11 +4,12 @@ import com.cours.project_spring_test.exception.ResourceNotFoundException;
 import com.cours.project_spring_test.exception.StockException;
 import com.cours.project_spring_test.model.Product;
 import com.cours.project_spring_test.service.ProductService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Service("products")
 public class ProductServiceImpl implements ProductService {
 
     private final List<Product> allProducts = new ArrayList<>();
