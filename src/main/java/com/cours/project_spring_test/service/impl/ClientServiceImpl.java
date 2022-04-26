@@ -34,4 +34,13 @@ public class ClientServiceImpl implements ClientService {
     public Client save(final Client client) {
         return clientRepository.save(client);
     }
+
+    @Override
+    public void updatePassword(String updatedPassword, Long id) {
+        clientRepository.updateClientPassword(updatedPassword, id);
+    }
+    @Override
+    public void updateUsername(String updatedUsername, Long id) {
+        clientRepository.updateClientUsername(updatedUsername, id);
+    }
 }

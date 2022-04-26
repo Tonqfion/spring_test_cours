@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Getter
@@ -28,4 +29,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @OneToMany
+    private List<OrderProduct> orderProducts;
 }

@@ -37,4 +37,21 @@ public class ClientController {
         newClient.setPassword(password);
         return clientService.save(newClient);
     }
+
+    @PutMapping("/update-username/{id}")
+    public void updateUsername(@PathVariable(value = "id") Long id, //
+                             @RequestParam("username") String username) {
+        if (username != null) {
+            clientService.updateUsername(username, id);
+        }
+    }
+
+
+    @PutMapping("/update-password/{id}")
+    public void updatePassword(@PathVariable(value = "id") Long id, //
+                               @RequestParam("password") String password) {
+        if (password != null) {
+            clientService.updatePassword(password, id);
+        }
+    }
 }

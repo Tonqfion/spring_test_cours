@@ -46,6 +46,6 @@ public class ProductServiceImpl implements ProductService {
         if (!isProductAvailable(product, quantity)) {
             throw new StockException(product);
         }
-        product.setAvailableQuantity(product.getAvailableQuantity() - quantity);
+        productRepository.delete(product);
     }
 }
