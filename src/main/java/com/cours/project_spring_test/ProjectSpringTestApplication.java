@@ -7,16 +7,22 @@ import com.cours.project_spring_test.model.Product;
 import com.cours.project_spring_test.service.ClientService;
 import com.cours.project_spring_test.service.OrderService;
 import com.cours.project_spring_test.service.ProductService;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.time.LocalDate;
 
-//@SpringBootApplication
-@ComponentScan("com.*")
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class ProjectSpringTestApplication {
 
     public static void main(String[] args) {
+        SpringApplication.run(ProjectSpringTestApplication.class, args);
+
+    }
+
+    public static void mainTP3(String[] args) {
         try(AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ProjectSpringTestApplication.class))
         {
             final ClientService clientService = context.getBean("clients", ClientService.class);
