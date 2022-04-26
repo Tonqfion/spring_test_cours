@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "product")
+@Table(name = "table_product")
 public class Product {
 
     @Id
@@ -24,7 +24,7 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "picture")
+    @Column(name = "picture", length=255)
     private String picture;
 
     @Column(name = "available_quantity", nullable = false)

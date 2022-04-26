@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "order")
+@Table(name = "table_order")
 public class Order {
 
     @Id

@@ -1,5 +1,6 @@
 package com.cours.project_spring_test.model;
 
+import com.cours.project_spring_test.model.embeddables.OrderProductId;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +9,11 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "order_product")
+@Table(name = "table_order_product")
 public class OrderProduct {
 
     @EmbeddedId
-    private fr.apitest.bertrand.apitest.entities.embeddables.OrderProductId id;
+    private OrderProductId id;
 
     @ManyToOne
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
