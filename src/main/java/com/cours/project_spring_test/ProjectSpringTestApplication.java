@@ -39,7 +39,7 @@ public class ProjectSpringTestApplication {
             productService.save(casquette);
 
             laDeuxiemeCommande.addProduct(chaussettes, 2);
-            laDeuxiemeCommande.addProduct(casquette, 5);
+            laDeuxiemeCommande.addProduct(casquette, 50);
 
             productService.getAllProducts().forEach(System.out::println);
             orderService.create(laDeuxiemeCommande);

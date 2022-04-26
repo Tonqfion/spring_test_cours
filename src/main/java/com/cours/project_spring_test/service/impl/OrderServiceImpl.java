@@ -5,7 +5,6 @@ import com.cours.project_spring_test.model.Order;
 import com.cours.project_spring_test.model.OrderProduct;
 import com.cours.project_spring_test.service.OrderService;
 import com.cours.project_spring_test.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,8 +16,11 @@ public class OrderServiceImpl implements OrderService {
 
     private final List<Order> allOrders = new ArrayList<>();
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public OrderServiceImpl(ProductService productService) {
+        this.productService = productService;
+    }
 
     @Override
     public List<Order> getAllOrders() {
@@ -48,10 +50,6 @@ public class OrderServiceImpl implements OrderService {
             }
             order.setStatus("Payé");
         }
-    }
-
-    public void setProductService(ProductServiceImpl productService) {
-        this.productService = productService;
     }
 
     public ProductService getProductService() {
