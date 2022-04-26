@@ -2,7 +2,6 @@ package com.cours.project_spring_test.controller;
 
 import com.cours.project_spring_test.model.Client;
 import com.cours.project_spring_test.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +12,8 @@ import java.util.Optional;
 @RequestMapping("/client")
 public class ClientController {
 
+    private final ClientService clientService;
 
-    ClientService clientService;
-
-    @Autowired
     public ClientController(final ClientService clientService) {
         this.clientService = clientService;
     }
@@ -33,12 +30,11 @@ public class ClientController {
     }
 
     @PostMapping("/save")
-    public void saveClient(@RequestParam("username") String username, //
+    public Client saveClient(@RequestParam("username") String username, //
                            @RequestParam("password") String password) {
         final Client newClient = new Client();
         newClient.setUsername(username);
         newClient.setPassword(password);
-        clientService.save(newClient);
-
+        return clientService.save(newClient);
     }
 }
