@@ -31,5 +31,6 @@ public class Order {
     private Client client;
 
     @OneToMany
+    @JoinColumn(name = "order_id")
     private List<OrderProduct> orderProducts;
 }
