@@ -7,10 +7,12 @@ import com.cours.project_spring_test.model.Product;
 import com.cours.project_spring_test.service.ClientService;
 import com.cours.project_spring_test.service.OrderService;
 import com.cours.project_spring_test.service.ProductService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 
@@ -19,7 +21,18 @@ public class ProjectSpringTestApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ProjectSpringTestApplication.class, args);
+    }
 
+    @Bean
+    public CommandLineRunner runner(ProductService productService) {
+        return args -> {
+            final Product chaussettes = new Product(1L, "Chaussettes", "Des chaussettes", 19.99, "chausettes.jpg", 500);
+            final Product chaussures = new Product(2L, "Chaussures", "Des chaussures", 29.99, "chaussures.jpg", 100);
+            final Product casquette = new Product(3L, "Casquette", "Une casquette", 59.99, "casquette.jpg", 20);
+            productService.save(chaussettes);
+            productService.save(chaussures);
+            productService.save(casquette);
+        };
     }
 
     public static void mainTP3(String[] args) {
